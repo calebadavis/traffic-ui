@@ -69,24 +69,18 @@ public class TrafficUI {
             return;
         }
         
-        // Get the config file name either using defaults, or from cmd-line
-        String cfgFName = DEFAULT_CFG_FNAME;
-        if (a.length == 1) {
-            cfgFName = a[0];
-        }
-        
         // Read the config file, generate the core logic Board object, store
-        // the solution array
-        theBoard = new Board(cfgFName);
+        // the solution array. Use cmd line arg for config data if specified
+        theBoard = (a.length == 1) ? new Board(a[0]) : new Board(true); 
         
         // Configure the main window
         theWindow.setLayout(null);
         theWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         theWindow.setBounds(0, 0, 500, 375);
-        
+
         // Create labels
         JLabel 
-            solvedImg = new JLabel(new ImageIcon(DEFAULT_SOLVED_IMAGE)),
+            solvedImg = new JLabel(new ImageIcon(TrafficUI.class.getClassLoader().getResource(DEFAULT_SOLVED_IMAGE))),
             activeBoardLabel = new JLabel(ACTIVE_BOARD_LABEL),
             solvedBoardLabel = new JLabel(SOLUTION_LABEL);
         
