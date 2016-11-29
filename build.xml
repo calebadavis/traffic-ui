@@ -1,0 +1,25 @@
+<project>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes">
+            <classpath>
+                <pathelement path="lib/trafficcore.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/trafficui.jar" basedir="build/classes">
+            <zipfileset dir="src" 
+                includes="solved.png"
+                fullpath="solved.png"/>
+        </jar>
+    </target>
+    
+</project>
