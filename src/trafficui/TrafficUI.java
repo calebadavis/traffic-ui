@@ -1,5 +1,4 @@
 package trafficui;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,14 +22,11 @@ public class TrafficUI {
     
     // Default config filename 
     public static String DEFAULT_CFG_FNAME = "config";
-    
-    // Image of the 'solved' configuration, so players can see it
-    public static String DEFAULT_SOLVED_IMAGE = "solved.png";
-    
+        
     // Label on the active board
-    public static String ACTIVE_BOARD_LABEL = "Active ('ctrl' for  alt direction)";
+    public static String ACTIVE_BOARD_LABEL = "Active ('a' for  alt direction)";
     
-    // Label on the solution image
+    // Label on the solution layout
     public static String SOLUTION_LABEL = "Solved";
     
     // The underlying 'Board' object, which implements the guts of the puzzle
