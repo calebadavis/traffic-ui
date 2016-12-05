@@ -80,17 +80,8 @@ public class TrafficUI {
 
         // Create labels
         JLabel 
-            solvedImg = new JLabel(new ImageIcon(TrafficUI.class.getClassLoader().getResource(DEFAULT_SOLVED_IMAGE))),
             activeBoardLabel = new JLabel(ACTIVE_BOARD_LABEL),
-            solvedBoardLabel = new JLabel(SOLUTION_LABEL);
-        
-        // Size and position the image of the solved board on the right side
-        solvedImg.setBounds(
-            GRID_ELEM_SIZE * (theBoard.getWidth() + 2),
-            0,
-            GRID_ELEM_SIZE * theBoard.getWidth(),
-            GRID_ELEM_SIZE * theBoard.getHeight()
-        );
+            solvedBoardLabel = new JLabel(SOLUTION_LABEL);        
         
         // Size and positon the active and solution labels
         activeBoardLabel.setBounds(
@@ -107,8 +98,7 @@ public class TrafficUI {
             GRID_ELEM_SIZE
         );
         
-        // Add the solution image and the labels to the window
-        theWindow.add(solvedImg);
+        // Add the labels to the window
         theWindow.add(activeBoardLabel);
         theWindow.add(solvedBoardLabel);
         
@@ -132,7 +122,10 @@ public class TrafficUI {
      * @param UIEvents  Event handler class for clicks on pieces 
      * @param solutionEvents    Event handler class for 'Solve' and 'Next'
      */
-    private static void _addButtons(TrafficUIEvents UIEvents, SolutionEvents solutionEvents) {
+    private static void _addButtons(
+        TrafficUIEvents UIEvents, 
+        SolutionEvents solutionEvents
+    ) {
 
         // Create new button objects for each piece
         PieceButton pb = null;
@@ -162,6 +155,27 @@ public class TrafficUI {
             buttons.add(pb);
         }
         
+        // Create a representation of the solved layout
+        JButton b = null;
+        List<PieceType> pTypes = theBoard.getTypes();
+        int width = theBoard.getWidth();
+        int solution[] = theBoard.getSolvedBoard();
+        for (int pid = -1, idx = 0, max = solution.length; idx < max; ++idx) {
+        	pid = solution[idx];
+        	if (pid != -1) {
+        		pt = pTypes.get(pid);
+        		b = new JButton();
+        		b.setBounds(
+                    GRID_ELEM_SIZE * (width + 2 + idx % width),
+                    GRID_ELEM_SIZE * (idx / width),
+                    GRID_ELEM_SIZE * pt.getWidth(),
+                    GRID_ELEM_SIZE * pt.getHeight()
+        		);
+        		b.setEnabled(false);
+            	theWindow.add(b);
+        	}
+        }
+        
         // create and place the 'Solve' and 'Next' buttons, with listener
         
         // First 'Solve'
@@ -188,8 +202,8 @@ public class TrafficUI {
         // add all the buttons to the main window
         theWindow.add(btnSolve);
         theWindow.add(btnNext);
-        for (PieceButton b : buttons) {
-            theWindow.add(b);
+        for (PieceButton pieceb : buttons) {
+            theWindow.add(pieceb);
         }
 
     }

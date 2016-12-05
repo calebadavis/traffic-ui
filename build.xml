@@ -15,11 +15,7 @@
 
     <target name="jar" depends="compile">
         <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/trafficui.jar" basedir="build/classes">
-            <zipfileset dir="src" 
-                includes="solved.png"
-                fullpath="solved.png"/>
-        </jar>
+        <jar destfile="build/jar/trafficui.jar" basedir="build/classes"/>
     </target>
     
 </project>
