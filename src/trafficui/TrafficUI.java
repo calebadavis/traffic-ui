@@ -152,14 +152,38 @@ public class TrafficUI {
         }
         
         // Create a representation of the solved layout
+
+        // The button to represent each of the pieces on the solved board
         JButton b = null;
-        List<PieceType> pTypes = theBoard.getTypes();
-        int width = theBoard.getWidth();
+        
+        // Flattened 1-D array of the piece types on the board
         int solution[] = theBoard.getSolvedBoard();
-        for (int pid = -1, idx = 0, max = solution.length; idx < max; ++idx) {
+        
+        // All of the types
+        List<PieceType> pTypes = theBoard.getTypes();
+        
+        // We'll use board width both to position the left edge of the
+        // 'solved' board, and also to turn the 1D index into the solved array
+        // into row/column
+        int width = theBoard.getWidth();
+        
+        // We can use the pid stored in the solved array to lookup the piece
+        // type with that id
+        int pid = -1;
+        
+        // Walk the 1-D solution array
+        for (int idx = 0; idx < solution.length; ++idx) {
+        	
+        	// get the pid value stored at that location on the solved board
         	pid = solution[idx];
+        	
+        	// skip the rest if it's an empty spot
         	if (pid != -1) {
+        		
+        		// Look up the PieceType from the id
         		pt = pTypes.get(pid);
+
+        		// Create the button, place it on the 2D board:
         		b = new JButton();
         		b.setBounds(
                     GRID_ELEM_SIZE * (width + 2 + idx % width),
